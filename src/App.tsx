@@ -1,7 +1,7 @@
-import { Button } from './components/ui/button'
-import Input from './components/ui/input/Input'
+import Button from './components/ui/button/button'
 import useInput from './components/ui/input/useInput'
 import { ExitIcon } from '@/components/icons/ExitIcon'
+import { Typography } from './components/ui/typography'
 
 export function App() {
 
@@ -19,14 +19,11 @@ export function App() {
       <Button iconEnd={<ExitIcon/>} variant='secondary'>Exit Icon</Button>
       </div>
       <div>
+        <Typography as={'h1'} variant='large'>
+          Hello
+        </Typography>
         <form>
-        <Input
-          type="email"
-          label="Email"
-          name="email"
-          placeholder="Please enter your email"
-          {...emailInput}
-        />
+     
 
         </form>
     
