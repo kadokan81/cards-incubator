@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react'
 import s from './button.module.scss'
-import { ExitIcon } from '@/components/icons/ExitIcon'
+
 
 export type ButtonProps<T extends ElementType = 'button'> = {
   as?: T
@@ -8,7 +8,8 @@ export type ButtonProps<T extends ElementType = 'button'> = {
   variant?: 'primary' | 'secondary' | 'tertiary' | 'link'
   fullWidth?: boolean
   className?: string
-  icon?: boolean
+  iconEnd?: ReactNode
+  iconStart?: ReactNode
 } & ComponentPropsWithoutRef<T>
 
 export const Button = <T extends ElementType = 'button'>(
@@ -19,7 +20,8 @@ export const Button = <T extends ElementType = 'button'>(
     fullWidth,
     className,
     as: Component = 'button',
-    icon = false,
+    iconStart,
+    iconEnd,
     ...rest
   } = props
   return (
@@ -27,8 +29,9 @@ export const Button = <T extends ElementType = 'button'>(
       className={`${s.btn} ${s[variant]} ${fullWidth ? s.fullWidth : ''} ${className}`}
       {...rest}
     >
-      {icon && <ExitIcon />}
+      {iconStart && iconStart}
       {rest.children}
+      {iconEnd && iconEnd}
     </Component>
   )
 }

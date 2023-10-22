@@ -9,9 +9,8 @@
 }
 
 .storybook-page h2 {
-  font-weight: 700;
   font-size: 32px;
-  line-height: 1;
+  font-weight: 700;
   margin: 0 0 4px;
   display: inline-block;
   vertical-align: top;
