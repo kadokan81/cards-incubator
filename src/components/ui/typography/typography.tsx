@@ -24,11 +24,11 @@ type TextProps<T extends ElementType> = {
 }
 export function Typography<T extends ElementType = 'p'>({
   as,
-  variant='body1',
+  variant = 'body1',
   className,
   ...restProps
 }: TextProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof TextProps<T>>) {
-    const classNames = clsx(s.text, s[variant], className)
+  const classNames = clsx(s.text, s[variant], className)
   const Component = as || 'p'
 
   return <Component className={classNames} {...restProps} />

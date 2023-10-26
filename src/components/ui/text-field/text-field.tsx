@@ -1,30 +1,34 @@
+/* eslint-disable import/no-unresolved */
 import { ComponentProps, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
-import clsx from 'clsx'
-import s from './text-field.module.scss'
-import { Typography } from '../typography'
-import VisibilityOf from '@/assets/icons/visibility-of'
+
 import Eye from '@/assets/icons/eye'
+import VisibilityOf from '@/assets/icons/visibility-of'
+import clsx from 'clsx'
+
+import s from './text-field.module.scss'
+
+import { Typography } from '../typography'
 
 export type TextFieldProps = {
-  onValueChange?: (value: string) => void
   containerProps?: ComponentProps<'div'>
-  labelProps?: ComponentProps<'label'>
   errorMessage?: string
   label?: string
+  labelProps?: ComponentProps<'label'>
+  onValueChange?: (value: string) => void
 } & ComponentPropsWithoutRef<'input'>
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
   (
     {
-      label,
-      type,
-      placeholder,
+      className,
       containerProps,
       errorMessage,
-      className,
+      label,
       labelProps,
       onChange,
       onValueChange,
+      placeholder,
+      type,
       ...restProps
     },
     ref
@@ -36,45 +40,46 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     const finalType = getFinalType(type, showPassword)
 
     const classNames = {
-      root: clsx(s.root, containerProps?.className),
-      fieldContainer: clsx(s.fieldContainer),
-      field: clsx(s.field, !!errorMessage && s.error, className),
-      label: clsx(s.label, labelProps?.className),
       error: clsx(s.error),
+      field: clsx(s.field, !!errorMessage && s.error, className),
+      fieldContainer: clsx(s.fieldContainer),
+      label: clsx(s.label, labelProps?.className),
+      root: clsx(s.root, containerProps?.className),
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       onChange?.(e)
       onValueChange?.(e.target.value)
     }
+
     return (
       <div className={classNames.root}>
         {label && (
-          <Typography variant="body2" as="label" className={classNames.label}>
+          <Typography as={'label'} className={classNames.label} variant={'body2'}>
             {label}
           </Typography>
         )}
         <div className={classNames.fieldContainer}>
           <input
             className={classNames.field}
+            onChange={handleChange}
             placeholder={placeholder}
             ref={ref}
             type={finalType}
-            onChange={handleChange}
             {...restProps}
           />
           {isShowPasswordButtonShown && (
             <button
               className={s.showPassword}
-              type={'button'}
               onClick={() => setShowPassword(prev => !prev)}
+              type={'button'}
             >
               {showPassword ? <VisibilityOf /> : <Eye />}
             </button>
           )}
         </div>
 
-        <Typography variant="error" className={classNames.error}>
+        <Typography className={classNames.error} variant={'error'}>
           {errorMessage}
         </Typography>
       </div>
