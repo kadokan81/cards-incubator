@@ -1,5 +1,7 @@
 import { ComponentPropsWithRef, forwardRef } from 'react'
+
 import clsx from 'clsx'
+
 import s from './card.module.scss'
 
 type CardProps = {} & ComponentPropsWithRef<'div'>
@@ -8,5 +10,6 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(({ className, ...restP
   const classNames = {
     root: clsx(s.root, className),
   }
-  return <div ref={ref} className={classNames.root} {...restProps}></div>
+
+  return <div className={classNames.root} ref={ref} {...restProps}></div>
 })

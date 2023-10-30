@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unresolved */
-import { ComponentProps, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
+import React, { ComponentProps, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 
 import Eye from '@/assets/icons/eye'
 import VisibilityOf from '@/assets/icons/visibility-of'
@@ -15,6 +15,7 @@ export type TextFieldProps = {
   label?: string
   labelProps?: ComponentProps<'label'>
   onValueChange?: (value: string) => void
+  pattern?: any
 } & ComponentPropsWithoutRef<'input'>
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(

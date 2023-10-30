@@ -19,7 +19,7 @@ const router = createBrowserRouter([
 export function App() {
   return (
     <div>
-      <div style={{ display: 'flex', gap: '20px' }}>
+      <div>
         <RouterProvider router={router} />
       </div>
     </div>
