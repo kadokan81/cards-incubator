@@ -1,4 +1,3 @@
-import React from 'react'
 import { Control, FieldPath, FieldValues, useController } from 'react-hook-form'
 
 import s from './controlled-radio-group.module.scss'

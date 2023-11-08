@@ -1,13 +1,16 @@
 // eslint-disable-next-line import/no-unresolved
-import { LoginForm } from '@/components/ui/auth/login-form'
+import { FormValues, LoginForm } from '@/components/auth/login-form'
+// eslint-disable-next-line import/no-unresolved
+import { Page } from '@/components/ui/page'
 
-import s from './login.module.scss'
 export const Login = () => {
+  const handlerSubmit = (arg: FormValues) => {
+    console.log('🚀 ~ file: login.tsx:9 ~ handlerSubmit ~ arg:', arg)
+  }
+
   return (
-    <div className={s.loginSection}>
-      <div className={s.loginSection__container}>
-        <LoginForm />
-      </div>
-    </div>
+    <Page>
+      <LoginForm onSubmit={handlerSubmit} />
+    </Page>
   )
 }
