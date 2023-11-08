@@ -5,7 +5,7 @@ import { Page } from '@/components/ui/page'
 
 export const Login = () => {
   const handlerSubmit = (arg: FormValues) => {
-    console.log('🚀 ~ file: login.tsx:9 ~ handlerSubmit ~ arg:', arg)
+    console.warn('🚀 ~ file: login.tsx:9 ~ handlerSubmit ~ arg:', arg)
   }
 
   return (
