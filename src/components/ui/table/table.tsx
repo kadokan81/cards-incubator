@@ -305,7 +305,7 @@ export const TableCards = () => {
     globalFilterFn: fuzzyFilter,
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setGlobalFilter,
-    state: { globalFilter: globalFilter, sorting },
+    state: { columnFilters, globalFilter },
   })
   // const { getPageCount, previousPage } = table
 
