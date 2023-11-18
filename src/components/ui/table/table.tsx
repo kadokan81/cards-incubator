@@ -3,6 +3,7 @@
 import { InputHTMLAttributes, useEffect, useMemo, useState } from 'react'
 
 import { ChevronUp } from '@/assets/icons'
+import * as Slider from '@radix-ui/react-slider'
 /* eslint-disable react/jsx-no-comment-textnodes */
 import { RankingInfo, compareItems, rankItem } from '@tanstack/match-sorter-utils'
 import {
@@ -48,7 +49,7 @@ type dataType = {
 
 const data: dataType[] = [
   {
-    cardsCount: 110,
+    cardsCount: 99,
     createdBy: 'John Doe',
     title: ' a Project A',
     updated: '2023-07-07',
@@ -72,7 +73,25 @@ const data: dataType[] = [
     updated: '2023-07-07',
   },
   {
-    cardsCount: 12,
+    cardsCount: 32,
+    createdBy: 'Emma Davis',
+    title: 'Project E',
+    updated: '2023-07-04',
+  },
+  {
+    cardsCount: 8,
+    createdBy: 'Alice Johnson',
+    title: 'Project C',
+    updated: '2023-07-05',
+  },
+  {
+    cardsCount: 3,
+    createdBy: 'Bob Anderson',
+    title: 'Project D',
+    updated: '2023-07-07',
+  },
+  {
+    cardsCount: 42,
     createdBy: 'Emma Davis',
     title: 'Project E',
     updated: '2023-07-04',
@@ -96,25 +115,7 @@ const data: dataType[] = [
     updated: '2023-07-04',
   },
   {
-    cardsCount: 8,
-    createdBy: 'Alice Johnson',
-    title: 'Project C',
-    updated: '2023-07-05',
-  },
-  {
-    cardsCount: 3,
-    createdBy: 'Bob Anderson',
-    title: 'Project D',
-    updated: '2023-07-07',
-  },
-  {
-    cardsCount: 12,
-    createdBy: 'Emma Davis',
-    title: 'Project E',
-    updated: '2023-07-04',
-  },
-  {
-    cardsCount: 8,
+    cardsCount: 38,
     createdBy: 'Alice Johnson',
     title: 'Project C',
     updated: '2023-07-05',
@@ -229,7 +230,8 @@ const data: dataType[] = [
 
 export const TableCards = () => {
   //   const [data, setData] = useState(dataFrom)
-  const [sorting, setSorting] = useState<SortingState>([])
+  // const [sorting, setSorting] = useState<SortingState>([])
+
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [globalFilter, setGlobalFilter] = useState('')
 
@@ -271,15 +273,11 @@ export const TableCards = () => {
       },
       {
         accessorKey: 'icons',
-        cell: props => {
-          // console.log(props)
-
-          return (
-            <div style={{ textAlign: 'right' }}>
-              <span>📒 📕 📘 {}</span>
-            </div>
-          )
-        },
+        cell: () => (
+          <div style={{ textAlign: 'right' }}>
+            <span>📒 📕 📘 {}</span>
+          </div>
+        ),
         header: '',
         size: 200,
       },
@@ -307,6 +305,10 @@ export const TableCards = () => {
     onGlobalFilterChange: setGlobalFilter,
     state: { columnFilters, globalFilter },
   })
+
+  const maxNum = table.getColumn('cardsCount')?.getFacetedMinMaxValues()?.[1] ?? 100
+  const minNum = table.getColumn('cardsCount')?.getFacetedMinMaxValues()?.[0] ?? 0
+  const [range, setRange] = useState([minNum, maxNum])
   // const { getPageCount, previousPage } = table
 
   // console.log('🚀 ~ file: table.tsx:262 ~ TableCards ~ previousPage:', previousPage)
@@ -328,17 +330,42 @@ export const TableCards = () => {
     tableRow: s.tableRow,
   }
 
+  const cardsRow = table.getColumn('cardsCount')
+
+  console.log('🚀 ~ file: table.tsx:331 ~ TableCards ~ maxNum:', maxNum)
+
   return (
     <div>
       <h1>Table</h1>
-      <div style={{ display: 'flex', marginBottom: '36px' }}>
+      <div style={{ display: 'flex', gap: '20px', marginBottom: '36px' }}>
         <DebouncedInput
           onChange={value => setGlobalFilter(String(value))}
           placeholder={'Search all columns...'}
           style={{ background: 'inherit' }}
           value={globalFilter ?? ''}
         />
-        <div className={'flex space-x-2'}></div>
+        <span>{range[0]}</span>
+        <Slider.Root
+          className={s.SliderRoot}
+          max={maxNum}
+          min={minNum}
+          minStepsBetweenThumbs={1}
+          onValueChange={e => {
+            setRange(e)
+          }}
+          onValueCommit={() => {
+            //also can make server request
+            table.getColumn('cardsCount')?.setFilterValue(range)
+          }}
+          value={range}
+        >
+          <Slider.Track className={s.SliderTrack}>
+            <Slider.Range className={s.SliderRange} />
+          </Slider.Track>
+          <Slider.Thumb className={s.SliderThumb} />
+          <Slider.Thumb className={s.SliderThumb} />
+        </Slider.Root>
+        <span>{range[1]}</span>
       </div>
       <table className={classNames.tableBody}>
         <thead>

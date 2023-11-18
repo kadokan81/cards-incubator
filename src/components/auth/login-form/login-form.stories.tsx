@@ -4,7 +4,6 @@ import { LoginForm } from './login-form'
 
 const meta = {
   component: LoginForm,
-
   tags: ['autodocs'],
   title: 'Auth/LoginForm',
 } satisfies Meta<typeof LoginForm>

@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import React from 'react'
 
 import { RankingInfo, compareItems, rankItem } from '@tanstack/match-sorter-utils'
