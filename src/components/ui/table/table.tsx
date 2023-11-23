@@ -2,18 +2,12 @@
 /* eslint-disable max-lines */
 import { InputHTMLAttributes, useEffect, useMemo, useState } from 'react'
 
-import { ChevronUp } from '@/assets/icons'
-import * as Slider from '@radix-ui/react-slider'
 /* eslint-disable react/jsx-no-comment-textnodes */
-import { RankingInfo, compareItems, rankItem } from '@tanstack/match-sorter-utils'
+import { rankItem } from '@tanstack/match-sorter-utils'
 import {
-  CellContext,
-  Column,
   ColumnDef,
   ColumnFiltersState,
   FilterFn,
-  SortingState,
-  Table,
   flexRender,
   getCoreRowModel,
   getFacetedMinMaxValues,
@@ -26,6 +20,11 @@ import {
 } from '@tanstack/react-table'
 
 import s from './table.module.scss'
+
+import { FilterRange } from './filter-range'
+import { TextField } from '../text-field'
+import { DebouncedInput } from './debouncedInput'
+import { TableHeader } from './tableHeader'
 
 const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
   // Rank the item
@@ -229,44 +228,32 @@ const data: dataType[] = [
 // ]
 
 export const TableCards = () => {
-  //   const [data, setData] = useState(dataFrom)
-  // const [sorting, setSorting] = useState<SortingState>([])
-
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [globalFilter, setGlobalFilter] = useState('')
 
   const memColumns = useMemo<ColumnDef<dataType>[]>(
     () => [
       {
-        // accessorFn: prop => <span>{prop.title.}</span>,
         accessorKey: 'title',
         cell: (info: { getValue: () => any }) => info.getValue(),
-        // cel: (props: { getValue: () => string }) => props.getValue().slice(0, 4),
         header: 'Name',
         size: 350,
       },
       {
         accessorKey: 'cardsCount',
         cell: (info: { getValue: () => any }) => info.getValue(),
-
-        // cell: props => props.getValue(),
-        // footer: props => props.header.id,
         header: 'Cards',
         size: 130,
       },
       {
         accessorKey: 'updated',
         cell: (info: { getValue: () => any }) => info.getValue(),
-
-        // cel: (props: { getValue: () => string }) => props.getValue().replace('-', '.'),
         header: 'Last Updated',
-
         size: 200,
       },
       {
         accessorKey: 'createdBy',
         cell: (info: { getValue: () => any }) => info.getValue(),
-
         header: 'Created by',
         maxSize: 250,
         size: 250,
@@ -306,15 +293,6 @@ export const TableCards = () => {
     state: { columnFilters, globalFilter },
   })
 
-  const maxNum = table.getColumn('cardsCount')?.getFacetedMinMaxValues()?.[1] ?? 100
-  const minNum = table.getColumn('cardsCount')?.getFacetedMinMaxValues()?.[0] ?? 0
-  const [range, setRange] = useState([minNum, maxNum])
-  // const { getPageCount, previousPage } = table
-
-  // console.log('🚀 ~ file: table.tsx:262 ~ TableCards ~ previousPage:', previousPage)
-
-  // console.log('🚀 ~ file: table.tsx:262 ~ TableCards ~ getPageCount:', getPageCount())
-
   useEffect(() => {
     if (table.getState().columnFilters[0]?.id === 'fullName') {
       if (table.getState().sorting[0]?.id !== 'fullName') {
@@ -331,42 +309,19 @@ export const TableCards = () => {
   }
 
   const cardsRow = table.getColumn('cardsCount')
+  const namesRow = table.getColumn('createdBy')
 
-  console.log('🚀 ~ file: table.tsx:331 ~ TableCards ~ maxNum:', maxNum)
 
   return (
     <div>
       <h1>Table</h1>
-      <div style={{ display: 'flex', gap: '20px', marginBottom: '36px' }}>
-        <DebouncedInput
-          onChange={value => setGlobalFilter(String(value))}
-          placeholder={'Search all columns...'}
-          style={{ background: 'inherit' }}
-          value={globalFilter ?? ''}
-        />
-        <span>{range[0]}</span>
-        <Slider.Root
-          className={s.SliderRoot}
-          max={maxNum}
-          min={minNum}
-          minStepsBetweenThumbs={1}
-          onValueChange={e => {
-            setRange(e)
-          }}
-          onValueCommit={() => {
-            //also can make server request
-            table.getColumn('cardsCount')?.setFilterValue(range)
-          }}
-          value={range}
-        >
-          <Slider.Track className={s.SliderTrack}>
-            <Slider.Range className={s.SliderRange} />
-          </Slider.Track>
-          <Slider.Thumb className={s.SliderThumb} />
-          <Slider.Thumb className={s.SliderThumb} />
-        </Slider.Root>
-        <span>{range[1]}</span>
-      </div>
+      <TableHeader
+        cardsRow={cardsRow}
+        namesRow={namesRow}
+        globalFilter={globalFilter}
+        setGlobalFilter={setGlobalFilter}
+      />
+
       <table className={classNames.tableBody}>
         <thead>
           {table.getHeaderGroups().map(headerGroup => (
@@ -414,50 +369,6 @@ export const TableCards = () => {
           })}
         </tbody>
       </table>
-
-      {/* <table className={classNames.tableBody}>
-        <thead>
-          {table.getHeaderGroups().map(headerGroup => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map(header => (
-                <th
-                  className={classNames.headerCell}
-                  key={header.id}
-                  style={{ width: header.getSize() }}
-                >
-                  {header.isPlaceholder ? null : (
-                    <div
-                      {...{
-                        className: header.column.getCanSort() ? 'cursor-pointer select-none' : '',
-                        onClick: header.column.getToggleSortingHandler(),
-                      }}
-                    >
-                      {flexRender(header.column.columnDef.header, header.getContext())}
-                      {{
-                        asc: <ChevronUp />,
-                        desc: <ChevronUp style={{ transform: 'rotate(180deg)' }} />,
-                      }[header.column.getIsSorted() as string] ?? null}
-                    </div>
-                  )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map(row => (
-            <tr className={classNames.tableRow} key={row.id}>
-              {row.getVisibleCells().map(cell => {
-                return (
-                  <td className={classNames.tableCell} key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                )
-              })}
-            </tr>
-          ))}
-        </tbody>
-      </table> */}
       <div>
         <button
           className={''}
@@ -496,7 +407,6 @@ export const TableCards = () => {
         <span className={'flex items-center gap-1'}>
           | Go to page:
           <input
-            // className={'border p-1 rounded w-16'}
             defaultValue={table.getState().pagination.pageIndex + 1}
             onChange={e => {
               const page = e.target.value ? Number(e.target.value) - 1 : 0
@@ -522,93 +432,5 @@ export const TableCards = () => {
         </select>
       </div>
     </div>
-  )
-}
-
-function DebouncedInput({
-  debounce = 500,
-  onChange,
-  value: initialValue,
-  ...props
-}: {
-  debounce?: number
-  onChange: (value: number | string) => void
-  value: number | string
-} & Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'>) {
-  const [value, setValue] = useState(initialValue)
-
-  useEffect(() => {
-    setValue(initialValue)
-  }, [initialValue])
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      onChange(value)
-    }, debounce)
-
-    return () => clearTimeout(timeout)
-  }, [value])
-
-  return <input {...props} onChange={e => setValue(e.target.value)} value={value} />
-}
-
-function Filter({ column, table }: { column: Column<dataType, unknown>; table: Table<dataType> }) {
-  const firstValue = table.getPreFilteredRowModel().flatRows[0]?.getValue(column.id)
-
-  const columnFilterValue = column.getFilterValue()
-
-  const sortedUniqueValues = useMemo(
-    () =>
-      typeof firstValue === 'number'
-        ? []
-        : Array.from(column.getFacetedUniqueValues().keys()).sort(),
-    [column.getFacetedUniqueValues()]
-  )
-
-  return typeof firstValue === 'number' ? (
-    <div>
-      <div className={'flex space-x-2'}>
-        {/* <DebouncedInput
-          className={'w-24 border shadow rounded'}
-          max={Number(column.getFacetedMinMaxValues()?.[1] ?? '')}
-          min={Number(column.getFacetedMinMaxValues()?.[0] ?? '')}
-          onChange={value => column.setFilterValue((old: [number, number]) => [value, old?.[1]])}
-          placeholder={`Min ${
-            column.getFacetedMinMaxValues()?.[0] ? `(${column.getFacetedMinMaxValues()?.[0]})` : ''
-          }`}
-          type={'number'}
-          value={(columnFilterValue as [number, number])?.[0] ?? ''}
-        /> */}
-        {/* <DebouncedInput
-          className={'w-24 border shadow rounded'}
-          max={Number(column.getFacetedMinMaxValues()?.[1] ?? '')}
-          min={Number(column.getFacetedMinMaxValues()?.[0] ?? '')}
-          onChange={value => column.setFilterValue((old: [number, number]) => [old?.[0], value])}
-          placeholder={`Max ${
-            column.getFacetedMinMaxValues()?.[1] ? `(${column.getFacetedMinMaxValues()?.[1]})` : ''
-          }`}
-          type={'number'}
-          value={(columnFilterValue as [number, number])?.[1] ?? ''}
-        /> */}
-      </div>
-      <div className={'h-1'} />
-    </div>
-  ) : (
-    <>
-      <datalist id={column.id + 'list'}>
-        {sortedUniqueValues.slice(0, 5000).map((value: any) => (
-          <option key={value} value={value} />
-        ))}
-      </datalist>
-      <DebouncedInput
-        className={'w-36 border shadow rounded'}
-        list={column.id + 'list'}
-        onChange={value => column.setFilterValue(value)}
-        placeholder={`Search... (${column.getFacetedUniqueValues().size})`}
-        type={'text'}
-        value={(columnFilterValue ?? '') as string}
-      />
-      <div className={'h-1'} />
-    </>
   )
 }

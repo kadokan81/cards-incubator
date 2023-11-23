@@ -1,5 +1,7 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
+import './index.css'
+
 import { Layout } from './components/ui/layout'
 import { ForgotPassword } from './pages/forgot-password'
 import { Login } from './pages/login'
@@ -24,11 +26,5 @@ const router = createBrowserRouter([
 ])
 
 export function App() {
-  return (
-    <div>
-      <div>
-        <RouterProvider router={router} />
-      </div>
-    </div>
-  )
+  return <RouterProvider router={router} />
 }
