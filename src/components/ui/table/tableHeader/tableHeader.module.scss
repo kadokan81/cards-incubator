@@ -5,7 +5,7 @@
     gap: 24px;
     margin-bottom: 36px;
     .global_filter {
-        flex: 0 0 300px;
+        flex: 0 0 290px;
         align-self: flex-end;
         display: flex;
         flex-direction: column;
@@ -14,7 +14,7 @@
 }
 
 .switcherBlock {
-    flex: 0 0 250px;
+    flex: 0 0 230px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -33,7 +33,7 @@
         font: inherit;
         cursor: pointer;
         outline: inherit;
-        padding: 6px 24px;
+        padding: 6px 20px;
         font-size: 16px;
         font-style: normal;
         font-weight: 400;
@@ -59,4 +59,14 @@
     padding: 6px 24px;
     background: var(--primary-500, #8c61ff);
     border: 1px solid transparent ;
+}
+
+.range__filter{
+    width: 255px;
+}
+.delete__filters{
+    margin-left: auto;
+    width: 154px;
+    align-self: flex-end;
+    justify-self: flex-end;
 }

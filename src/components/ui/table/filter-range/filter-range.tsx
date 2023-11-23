@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import React, { FC, useState } from 'react'
 
 import * as Slider from '@radix-ui/react-slider'
 import { Column } from '@tanstack/react-table'
@@ -9,13 +9,13 @@ import { Typography } from '../../typography'
 
 type Props = {
   cardsRow: Column<any, unknown> | undefined
+  maxNum: number
+  minNum: number
+  range: number[]
+  setRange: React.Dispatch<React.SetStateAction<number[]>>
 }
 
-export const FilterRange: FC<Props> = ({ cardsRow }) => {
-  const maxNum = cardsRow?.getFacetedMinMaxValues()?.[1] ?? 100
-  const minNum = cardsRow?.getFacetedMinMaxValues()?.[0] ?? 0
-  const [range, setRange] = useState([minNum, maxNum])
-
+export const FilterRange: FC<Props> = ({ cardsRow, maxNum = 100, minNum = 0, range, setRange }) => {
   return (
     <div className={s.rootRange}>
       <Typography as={'h3'} className={s.rangeTitle}>

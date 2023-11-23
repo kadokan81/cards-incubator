@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable max-lines */
-import { InputHTMLAttributes, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 /* eslint-disable react/jsx-no-comment-textnodes */
 import { rankItem } from '@tanstack/match-sorter-utils'
@@ -21,9 +21,7 @@ import {
 
 import s from './table.module.scss'
 
-import { FilterRange } from './filter-range'
-import { TextField } from '../text-field'
-import { DebouncedInput } from './debouncedInput'
+import Button from '../button/button'
 import { TableHeader } from './tableHeader'
 
 const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
@@ -50,7 +48,7 @@ const data: dataType[] = [
   {
     cardsCount: 99,
     createdBy: 'John Doe',
-    title: ' a Project A',
+    title: 'new',
     updated: '2023-07-07',
   },
   {
@@ -61,7 +59,7 @@ const data: dataType[] = [
   },
   {
     cardsCount: 88,
-    createdBy: 'AAlice Johnson',
+    createdBy: 'Alex',
     title: 'Project C',
     updated: '2023-07-05',
   },
@@ -86,7 +84,7 @@ const data: dataType[] = [
   {
     cardsCount: 3,
     createdBy: 'Bob Anderson',
-    title: 'Project D',
+    title: 'judo',
     updated: '2023-07-07',
   },
   {
@@ -110,7 +108,7 @@ const data: dataType[] = [
   {
     cardsCount: 12,
     createdBy: 'Emma Davis',
-    title: 'Project E',
+    title: 'music',
     updated: '2023-07-04',
   },
   {
@@ -311,14 +309,16 @@ export const TableCards = () => {
   const cardsRow = table.getColumn('cardsCount')
   const namesRow = table.getColumn('createdBy')
 
-
   return (
     <div>
-      <h1>Table</h1>
+      <div className={s.tablePage_title}>
+        <h1>Packs list</h1>
+        <Button>Add New Pack</Button>
+      </div>
       <TableHeader
         cardsRow={cardsRow}
-        namesRow={namesRow}
         globalFilter={globalFilter}
+        namesRow={namesRow}
         setGlobalFilter={setGlobalFilter}
       />
 

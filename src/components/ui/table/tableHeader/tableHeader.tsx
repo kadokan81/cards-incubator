@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 
+// eslint-disable-next-line import/no-unresolved
+import { DeleteIcon } from '@/assets/icons'
 import { Column } from '@tanstack/react-table'
 
 import s from './tableHeader.module.scss'
 
+import Button from '../../button/button'
 import { Typography } from '../../typography'
 import { DebouncedInput } from '../debouncedInput'
 import { FilterRange } from '../filter-range'
@@ -16,7 +19,10 @@ type Props = {
 }
 
 export const TableHeader = ({ cardsRow, globalFilter, namesRow, setGlobalFilter }: Props) => {
-  const [myCards, setMyCards] = useState(false)
+  const maxNum = cardsRow?.getFacetedMinMaxValues()?.[1] ?? 100
+  const minNum = cardsRow?.getFacetedMinMaxValues()?.[0] ?? 0
+  const [myCards, setMyCards] = useState(true)
+  const [range, setRange] = useState([minNum, maxNum])
 
   const myCardHandler = () => {
     setMyCards(false)
@@ -25,6 +31,14 @@ export const TableHeader = ({ cardsRow, globalFilter, namesRow, setGlobalFilter 
   const allCardHandler = () => {
     setMyCards(true)
     namesRow?.setFilterValue('')
+  }
+
+  const resetAllFiltersHandler = () => {
+    setGlobalFilter('')
+    namesRow?.setFilterValue('')
+    cardsRow?.setFilterValue([])
+    setMyCards(true)
+    setRange([minNum, maxNum])
   }
 
   return (
@@ -54,7 +68,24 @@ export const TableHeader = ({ cardsRow, globalFilter, namesRow, setGlobalFilter 
           </button>
         </div>
       </div>
-      <FilterRange cardsRow={cardsRow} />
+      <div className={s.range__filter}>
+        <FilterRange
+          cardsRow={cardsRow}
+          maxNum={maxNum}
+          minNum={minNum}
+          range={range}
+          setRange={setRange}
+        />
+      </div>
+      <div className={s.delete__filters}>
+        <Button
+          iconStart={<DeleteIcon />}
+          onClick={() => resetAllFiltersHandler()}
+          variant={'secondary'}
+        >
+          Clear Filter
+        </Button>
+      </div>
     </div>
   )
 }
