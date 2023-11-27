@@ -45,7 +45,7 @@
       background: var(--dark-500, #333);
     }
     &:focus {
-      border: 2px solid var(--info-700, #2f68cc);
+      outline: 2px solid var(--info-700, #2f68cc);
       background: var(--dark-300, #4c4c4c);
     }
     &:disabled {
@@ -93,7 +93,7 @@
     }
     &:focus {
       border-radius: 130px;
-      border: 2px solid var(--info-700, #2f68cc);
+      outline: 2px solid var(--info-700, #2f68cc);
     }
     &:disabled {
       color: var(--primary-900, #382766);

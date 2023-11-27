@@ -1,4 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
+/* eslint-disable import/no-unresolved */
+
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 
@@ -55,6 +57,7 @@ export const LoginForm = (props: Props) => {
         <div style={{ alignSelf: 'start' }}>
           <ControlledCheckbox control={control} label={'remember me'} name={'rememberMe'} />
         </div>
+
         <Typography
           as={Link}
           style={{ alignSelf: 'end', fontSize: '14px', marginBottom: '60px', textAlign: 'right' }}

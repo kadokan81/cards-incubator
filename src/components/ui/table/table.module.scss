@@ -1,0 +1,45 @@
+// @import "@radix-ui/colors/black-alpha.css";
+// @import "@radix-ui/colors/violet.css";
+
+.tablePage_title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.SliderRoot {
+    position: relative;
+    display: flex;
+    align-items: center;
+    user-select: none;
+    touch-action: none;
+    width: 200px;
+    height: 20px;
+}
+
+.tableBody {
+    border-collapse: collapse;
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-dark-500);
+    width: 100%;
+}
+
+.headerCell {
+    text-align: left;
+    padding: 6px 24px;
+
+    font-size: var(--font-size-s);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-m);
+
+    background-color: var(--color-dark-500);
+}
+
+.tableRow {
+    border-bottom: 1px solid var(--color-dark-500);
+}
+
+.tableCell {
+    text-align: left;
+    padding: 6px 24px;
+}
