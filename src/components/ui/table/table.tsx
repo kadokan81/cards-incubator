@@ -297,7 +297,7 @@ export const TableCards = () => {
         table.setSorting([{ desc: false, id: 'fullName' }])
       }
     }
-  }, [table.getState().columnFilters[0]?.id])
+  }, [table])
 
   const classNames = {
     headerCell: s.headerCell,
@@ -310,7 +310,7 @@ export const TableCards = () => {
   const namesRow = table.getColumn('createdBy')
 
   return (
-    <div>
+    <>
       <div className={s.tablePage_title}>
         <h1>Packs list</h1>
         <Button>Add New Pack</Button>
@@ -431,6 +431,6 @@ export const TableCards = () => {
           ))}
         </select>
       </div>
-    </div>
+    </>
   )
 }

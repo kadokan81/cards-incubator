@@ -6,7 +6,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: var(--color-dark-500);
+    background: var(--color-dark-700);
+    border-bottom: 1px solid var(--color-dark-500);
     &__container {
         flex: 1 1 100%;
         max-width: 1038px;

@@ -7,6 +7,7 @@ import { Logo } from '@/assets/icons'
 import s from './header.module.scss'
 
 import Button from '../../button/button'
+import { Dropdown } from '../../dropdown'
 
 type HeaderProps = {
   isAuth: boolean
@@ -24,11 +25,12 @@ export const Header: FC<HeaderProps> = ({ isAuth }) => {
               </Link>
             </li>
             <li>
-              {!isAuth && (
+              <Dropdown />
+              {/* {!isAuth && (
                 <Link to={'/login'}>
                   <Button variant={'primary'}>Sign In</Button>
                 </Link>
-              )}
+              )} */}
             </li>
           </ul>
         </nav>
