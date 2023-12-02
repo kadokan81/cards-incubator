@@ -1,20 +1,30 @@
 .tableHeader_body {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
+    justify-items: center;
     gap: 24px;
     margin-bottom: 36px;
     .global_filter {
-        flex: 0 0 290px;
+        flex: 0 0 28%;
         align-self: flex-end;
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
+        @media (max-width: 986px) {
+            
+            flex: 0 0 50%;
+        }
+        @media (max-width:507px) {
+            
+            flex: 0 0 100%;
+        }
     }
 }
 
 .switcherBlock {
-    flex: 0 0 230px;
+    flex: 0 0 23%;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -22,13 +32,14 @@
 }
 .switcherGroup {
     display: flex;
+    flex: 0 0 23%;
     border-radius: 2px;
     overflow: hidden;
     button,
     input[type="submit"],
     input[type="reset"] {
         color: inherit;
-        
+        text-wrap: nowrap;
         padding: 0;
         font: inherit;
         cursor: pointer;
@@ -39,34 +50,41 @@
         font-weight: 400;
         line-height: 24px;
         width: 50%;
-        transition: all .3s ease;
-        &:disabled{
-            color: #4C4C4C;
+        transition: all 0.3s ease;
+        &:disabled {
+            color: #4c4c4c;
             background: var(--dark-700, #171717);
-
         }
     }
 }
 .switcher {
     background: inherit;
-    border: 1px solid var(--color-dark-300) ;
-    &:hover{
-        background: var(--dark-300, #4C4C4C);
-
+    border: 1px solid var(--color-dark-300);
+    &:hover {
+        background: var(--dark-300, #4c4c4c);
     }
 }
 .switcher__active {
     padding: 6px 24px;
     background: var(--primary-500, #8c61ff);
-    border: 1px solid transparent ;
+    border: 1px solid transparent;
 }
 
-.range__filter{
-    width: 255px;
+.range__filter {
+    flex: 0 0 23%;
 }
-.delete__filters{
+.delete__filters {
     margin-left: auto;
-    width: 154px;
+    flex: 0 0 14%;
     align-self: flex-end;
     justify-self: flex-end;
+    @media (max-width: 986px) {
+        margin-right: auto;
+     
+    }
+}
+.nowrap {
+    text-wrap: nowrap;
+    padding-left: clamp(3px, 2.4vw, 20px);
+
 }

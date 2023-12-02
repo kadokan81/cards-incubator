@@ -79,6 +79,7 @@ export const TableHeader = ({ cardsRow, globalFilter, namesRow, setGlobalFilter 
       </div>
       <div className={s.delete__filters}>
         <Button
+          className={s.nowrap}
           iconStart={<DeleteIcon />}
           onClick={() => resetAllFiltersHandler()}
           variant={'secondary'}

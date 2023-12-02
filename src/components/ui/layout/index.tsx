@@ -9,10 +9,10 @@ export const Layout = () => {
   const isAuth = false
 
   return (
-    <div className={s.container}>
+    <>
       <Header isAuth={isAuth} />
       <div aria-hidden className={s.placeholder} />
       <Outlet />
-    </div>
+    </>
   )
 }

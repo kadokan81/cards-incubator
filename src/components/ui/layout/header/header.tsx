@@ -13,7 +13,7 @@ type HeaderProps = {
   isAuth: boolean
 }
 
-export const Header: FC<HeaderProps> = ({ isAuth }) => {
+export const Header: FC<HeaderProps> = ({ isAuth = false }) => {
   return (
     <header className={s.header}>
       <div className={s.header__container}>
@@ -25,12 +25,13 @@ export const Header: FC<HeaderProps> = ({ isAuth }) => {
               </Link>
             </li>
             <li>
-              <Dropdown />
-              {/* {!isAuth && (
+              {isAuth ? (
                 <Link to={'/login'}>
                   <Button variant={'primary'}>Sign In</Button>
                 </Link>
-              )} */}
+              ) : (
+                <Dropdown />
+              )}
             </li>
           </ul>
         </nav>
