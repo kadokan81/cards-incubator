@@ -2,6 +2,7 @@
 /* eslint-disable max-lines */
 import { useEffect, useMemo, useState } from 'react'
 
+import Arrow from '@/assets/icons/arrow'
 /* eslint-disable react/jsx-no-comment-textnodes */
 import { rankItem } from '@tanstack/match-sorter-utils'
 import {
@@ -21,8 +22,8 @@ import {
 
 import s from './table.module.scss'
 
-import { Avatar } from '../avatar'
 import Button from '../button/button'
+import Pagination from './pagination/pagination'
 import { TableHeader } from './tableHeader'
 
 const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
@@ -38,7 +39,7 @@ const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
   return itemRank.passed
 }
 
-type dataType = {
+export type dataType = {
   cardsCount: number
   createdBy: string
   title: string
@@ -183,6 +184,408 @@ const data: dataType[] = [
     createdBy: 'Emma Davis',
     title: 'Project E',
     updated: '2023-07-04',
+  },
+  {
+    cardsCount: 99,
+    createdBy: 'John Doe',
+    title: 'new',
+    updated: '2023-07-07',
+  },
+  {
+    cardsCount: 5,
+    createdBy: 'Jane Smith',
+    title: 'Project B',
+    updated: '2023-07-06',
+  },
+  {
+    cardsCount: 88,
+    createdBy: 'Alex',
+    title: 'Project C',
+    updated: '2023-07-05',
+  },
+  {
+    cardsCount: 3,
+    createdBy: 'Bob Anderson',
+    title: 'Project D',
+    updated: '2023-07-07',
+  },
+  {
+    cardsCount: 32,
+    createdBy: 'Emma Davis',
+    title: 'Project E',
+    updated: '2023-07-04',
+  },
+  {
+    cardsCount: 8,
+    createdBy: 'Alice Johnson',
+    title: 'Project C',
+    updated: '2023-07-05',
+  },
+  {
+    cardsCount: 3,
+    createdBy: 'Bob Anderson',
+    title: 'judo',
+    updated: '2023-07-07',
+  },
+  {
+    cardsCount: 42,
+    createdBy: 'Emma Davis',
+    title: 'Project E',
+    updated: '2023-07-04',
+  },
+  {
+    cardsCount: 8,
+    createdBy: 'Alice Johnson',
+    title: 'Project C',
+    updated: '2023-07-05',
+  },
+  {
+    cardsCount: 3,
+    createdBy: 'Bob Anderson',
+    title: 'Project D',
+    updated: '2023-07-07',
+  },
+  {
+    cardsCount: 12,
+    createdBy: 'Emma Davis',
+    title: 'music',
+    updated: '2023-07-04',
+  },
+  {
+    cardsCount: 38,
+    createdBy: 'Alice Johnson',
+    title: 'Project C',
+    updated: '2023-07-05',
+  },
+  {
+    cardsCount: 3,
+    createdBy: 'Bob Anderson',
+    title: 'Project D',
+    updated: '2023-07-07',
+  },
+  {
+    cardsCount: 12,
+    createdBy: 'Emma Davis',
+    title: 'Project E',
+    updated: '2023-07-04',
+  },
+  {
+    cardsCount: 8,
+    createdBy: 'Alice Johnson',
+    title: 'Project C',
+    updated: '2023-07-05',
+  },
+  {
+    cardsCount: 3,
+    createdBy: 'Bob Anderson',
+    title: 'Project D',
+    updated: '2023-07-07',
+  },
+  {
+    cardsCount: 12,
+    createdBy: 'Emma Davis',
+    title: 'Project E',
+    updated: '2023-07-04',
+  },
+  {
+    cardsCount: 8,
+    createdBy: 'Alice Johnson',
+    title: 'Project C',
+    updated: '2023-07-05',
+  },
+  {
+    cardsCount: 3,
+    createdBy: 'Bob Anderson',
+    title: 'Project D',
+    updated: '2023-07-07',
+  },
+  {
+    cardsCount: 12,
+    createdBy: 'Emma Davis',
+    title: 'Project E',
+    updated: '2023-07-04',
+  },
+  {
+    cardsCount: 8,
+    createdBy: 'Alice Johnson',
+    title: 'Project C',
+    updated: '2023-07-05',
+  },
+  {
+    cardsCount: 3,
+    createdBy: 'Bob Anderson',
+    title: 'Project D',
+    updated: '2023-07-07',
+  },
+  {
+    cardsCount: 12,
+    createdBy: 'Emma Davis',
+    title: 'Project E',
+    updated: '2023-07-04',
+  },
+  {
+    cardsCount: 99,
+    createdBy: 'John Doe',
+    title: 'new',
+    updated: '2023-07-07',
+  },
+  {
+    cardsCount: 5,
+    createdBy: 'Jane Smith',
+    title: 'Project B',
+    updated: '2023-07-06',
+  },
+  {
+    cardsCount: 88,
+    createdBy: 'Alex',
+    title: 'Project C',
+    updated: '2023-07-05',
+  },
+  {
+    cardsCount: 3,
+    createdBy: 'Bob Anderson',
+    title: 'Project D',
+    updated: '2023-07-07',
+  },
+  {
+    cardsCount: 32,
+    createdBy: 'Emma Davis',
+    title: 'Project E',
+    updated: '2023-07-04',
+  },
+  {
+    cardsCount: 8,
+    createdBy: 'Alice Johnson',
+    title: 'Project C',
+    updated: '2023-07-05',
+  },
+  {
+    cardsCount: 3,
+    createdBy: 'Bob Anderson',
+    title: 'judo',
+    updated: '2023-07-07',
+  },
+  {
+    cardsCount: 42,
+    createdBy: 'Emma Davis',
+    title: 'Project E',
+    updated: '2023-07-04',
+  },
+  {
+    cardsCount: 8,
+    createdBy: 'Alice Johnson',
+    title: 'Project C',
+    updated: '2023-07-05',
+  },
+  {
+    cardsCount: 3,
+    createdBy: 'Bob Anderson',
+    title: 'Project D',
+    updated: '2023-07-07',
+  },
+  {
+    cardsCount: 12,
+    createdBy: 'Emma Davis',
+    title: 'music',
+    updated: '2023-07-04',
+  },
+  {
+    cardsCount: 38,
+    createdBy: 'Alice Johnson',
+    title: 'Project C',
+    updated: '2023-07-05',
+  },
+  {
+    cardsCount: 3,
+    createdBy: 'Bob Anderson',
+    title: 'Project D',
+    updated: '2023-07-07',
+  },
+  {
+    cardsCount: 12,
+    createdBy: 'Emma Davis',
+    title: 'Project E',
+    updated: '2023-07-04',
+  },
+  {
+    cardsCount: 8,
+    createdBy: 'Alice Johnson',
+    title: 'Project C',
+    updated: '2023-07-05',
+  },
+  {
+    cardsCount: 3,
+    createdBy: 'Bob Anderson',
+    title: 'Project D',
+    updated: '2023-07-07',
+  },
+  {
+    cardsCount: 12,
+    createdBy: 'Emma Davis',
+    title: 'Project E',
+    updated: '2023-07-04',
+  },
+  {
+    cardsCount: 8,
+    createdBy: 'Alice Johnson',
+    title: 'Project C',
+    updated: '2023-07-05',
+  },
+  {
+    cardsCount: 3,
+    createdBy: 'Bob Anderson',
+    title: 'Project D',
+    updated: '2023-07-07',
+  },
+  {
+    cardsCount: 12,
+    createdBy: 'Emma Davis',
+    title: 'Project E',
+    updated: '2023-07-04',
+  },
+  {
+    cardsCount: 8,
+    createdBy: 'Alice Johnson',
+    title: 'Project C',
+    updated: '2023-07-05',
+  },
+  {
+    cardsCount: 3,
+    createdBy: 'Bob Anderson',
+    title: 'Project D',
+    updated: '2023-07-07',
+  },
+  {
+    cardsCount: 12,
+    createdBy: 'Emma Davis',
+    title: 'Project E',
+    updated: '2023-07-04',
+  },
+  {
+    cardsCount: 99,
+    createdBy: 'John Doe',
+    title: 'new',
+    updated: '2023-07-07',
+  },
+  {
+    cardsCount: 5,
+    createdBy: 'Jane Smith',
+    title: 'Project B',
+    updated: '2023-07-06',
+  },
+  {
+    cardsCount: 88,
+    createdBy: 'Alex',
+    title: 'Project C',
+    updated: '2023-07-05',
+  },
+  {
+    cardsCount: 3,
+    createdBy: 'Bob Anderson',
+    title: 'Project D',
+    updated: '2023-07-07',
+  },
+  {
+    cardsCount: 32,
+    createdBy: 'Emma Davis',
+    title: 'Project E',
+    updated: '2023-07-04',
+  },
+  {
+    cardsCount: 8,
+    createdBy: 'Alice Johnson',
+    title: 'Project C',
+    updated: '2023-07-05',
+  },
+  {
+    cardsCount: 3,
+    createdBy: 'Bob Anderson',
+    title: 'judo',
+    updated: '2023-07-07',
+  },
+  {
+    cardsCount: 42,
+    createdBy: 'Emma Davis',
+    title: 'Project E',
+    updated: '2023-07-04',
+  },
+  {
+    cardsCount: 8,
+    createdBy: 'Alice Johnson',
+    title: 'Project C',
+    updated: '2023-07-05',
+  },
+  {
+    cardsCount: 3,
+    createdBy: 'Bob Anderson',
+    title: 'Project D',
+    updated: '2023-07-07',
+  },
+  {
+    cardsCount: 12,
+    createdBy: 'Emma Davis',
+    title: 'music',
+    updated: '2023-07-04',
+  },
+  {
+    cardsCount: 38,
+    createdBy: 'Alice Johnson',
+    title: 'Project C',
+    updated: '2023-07-05',
+  },
+  {
+    cardsCount: 3,
+    createdBy: 'Bob Anderson',
+    title: 'Project D',
+    updated: '2023-07-07',
+  },
+  {
+    cardsCount: 12,
+    createdBy: 'Emma Davis',
+    title: 'Project E',
+    updated: '2023-07-04',
+  },
+  {
+    cardsCount: 8,
+    createdBy: 'Alice Johnson',
+    title: 'Project C',
+    updated: '2023-07-05',
+  },
+  {
+    cardsCount: 3,
+    createdBy: 'Bob Anderson',
+    title: 'Project D',
+    updated: '2023-07-07',
+  },
+  {
+    cardsCount: 12,
+    createdBy: 'Emma Davis',
+    title: 'Project E',
+    updated: '2023-07-04',
+  },
+  {
+    cardsCount: 8,
+    createdBy: 'Alice Johnson',
+    title: 'Project C',
+    updated: '2023-07-05',
+  },
+  {
+    cardsCount: 3,
+    createdBy: 'Bob Anderson',
+    title: 'Project D',
+    updated: '2023-07-07',
+  },
+  {
+    cardsCount: 12,
+    createdBy: 'Emma Davis',
+    title: 'Project E',
+    updated: '2023-07-04',
+  },
+  {
+    cardsCount: 8,
+    createdBy: 'Alice Johnson',
+    title: 'Project C',
+    updated: '2023-07-05',
   },
 ]
 
@@ -380,68 +783,7 @@ export const TableCards = () => {
           })}
         </tbody>
       </table>
-      <div>
-        <button
-          className={''}
-          disabled={!table.getCanPreviousPage()}
-          onClick={() => table.setPageIndex(0)}
-        >
-          {'<<'}
-        </button>
-        <button
-          className={''}
-          disabled={!table.getCanPreviousPage()}
-          onClick={() => table.previousPage()}
-        >
-          {'<'}
-        </button>
-        <button
-          className={'border rounded p-1'}
-          disabled={!table.getCanNextPage()}
-          onClick={() => table.nextPage()}
-        >
-          {'>'}
-        </button>
-        <button
-          className={'border rounded p-1'}
-          disabled={!table.getCanNextPage()}
-          onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-        >
-          {'>>'}
-        </button>
-        <span className={'flex items-center gap-1'}>
-          <div>Page</div>
-          <strong>
-            {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
-          </strong>
-        </span>
-        <span className={'flex items-center gap-1'}>
-          | Go to page:
-          <input
-            defaultValue={table.getState().pagination.pageIndex + 1}
-            onChange={e => {
-              const page = e.target.value ? Number(e.target.value) - 1 : 0
-
-              table.setPageIndex(page)
-            }}
-            style={{ background: 'black' }}
-            type={'number'}
-          />
-        </span>
-        <select
-          onChange={e => {
-            table.setPageSize(Number(e.target.value))
-          }}
-          style={{ background: 'black' }}
-          value={table.getState().pagination.pageSize}
-        >
-          {[5, 10, 20].map(pageSize => (
-            <option key={pageSize} value={pageSize}>
-              Show {pageSize}
-            </option>
-          ))}
-        </select>
-      </div>
+      <Pagination table={table} />
     </>
   )
 }

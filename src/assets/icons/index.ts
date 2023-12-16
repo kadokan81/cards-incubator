@@ -1,3 +1,4 @@
+export { default as Arrow } from './arrow'
 export { default as Camera } from './camera'
 export { default as Check } from './check'
 export { default as ChevronUp } from './chevron-up'
