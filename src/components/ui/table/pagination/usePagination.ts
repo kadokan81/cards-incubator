@@ -7,11 +7,6 @@ export const DOTS = '...'
 const range = (start: number, end: number) => {
   const length = end - start + 1
 
-  console.log(
-    '🚀 ~ file: usePagination.ts:12 ~ range ~ Array.from({ length }, (_, idx) => idx + start):',
-    Array.from({ length }, (_, idx) => idx + start)
-  )
-
   return Array.from({ length }, (_, idx) => idx + start)
 }
 

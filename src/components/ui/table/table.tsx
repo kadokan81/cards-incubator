@@ -66,7 +66,7 @@ const data: dataType[] = [
     updated: '2023-07-05',
   },
   {
-    cardsCount: 3,
+    cardsCount: 5,
     createdBy: 'Bob Anderson',
     title: 'Project D',
     updated: '2023-07-07',
@@ -84,7 +84,7 @@ const data: dataType[] = [
     updated: '2023-07-05',
   },
   {
-    cardsCount: 3,
+    cardsCount: 13,
     createdBy: 'Bob Anderson',
     title: 'judo',
     updated: '2023-07-07',
@@ -102,7 +102,7 @@ const data: dataType[] = [
     updated: '2023-07-05',
   },
   {
-    cardsCount: 3,
+    cardsCount: 35,
     createdBy: 'Bob Anderson',
     title: 'Project D',
     updated: '2023-07-07',
@@ -354,7 +354,7 @@ const data: dataType[] = [
     updated: '2023-07-04',
   },
   {
-    cardsCount: 8,
+    cardsCount: 0,
     createdBy: 'Alice Johnson',
     title: 'Project C',
     updated: '2023-07-05',

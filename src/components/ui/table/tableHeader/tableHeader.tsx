@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // eslint-disable-next-line import/no-unresolved
 import { DeleteIcon } from '@/assets/icons'
@@ -19,18 +19,28 @@ type Props = {
 }
 
 export const TableHeader = ({ cardsRow, globalFilter, namesRow, setGlobalFilter }: Props) => {
-  const maxNum = cardsRow?.getFacetedMinMaxValues()?.[1] ?? 100
   const minNum = cardsRow?.getFacetedMinMaxValues()?.[0] ?? 0
+  const maxNum = cardsRow?.getFacetedMinMaxValues()?.[1] ?? 100
+
   const [myCards, setMyCards] = useState(true)
-  const [range, setRange] = useState([minNum, maxNum])
+  const [range, setRange] = useState([minNum, Array.isArray(maxNum) ? maxNum[0] : maxNum])
+
+  useEffect(() => {
+    setRange([minNum, Array.isArray(maxNum) ? maxNum[0] : maxNum])
+  }, [maxNum, minNum])
 
   const myCardHandler = () => {
     setMyCards(false)
+    cardsRow?.setFilterValue([])
+    setRange([minNum, Array.isArray(maxNum) ? maxNum[0] : maxNum])
+    setGlobalFilter('')
     namesRow?.setFilterValue('Bob Anderson')
   }
   const allCardHandler = () => {
     setMyCards(true)
     namesRow?.setFilterValue('')
+    cardsRow?.setFilterValue([])
+    setRange([minNum, maxNum])
   }
 
   const resetAllFiltersHandler = () => {
